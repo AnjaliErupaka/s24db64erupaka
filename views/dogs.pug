@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  h1= title
+  
+  -
+  .container-fluid
+  .row
+    - let dogs = [{ breed: 'Labrador Retriever', color: 'Golden', age: 3 },{ breed: 'German Shepherd', color: 'Black and Tan', age: 5 },{ breed: 'Beagle', color: 'Tricolor', age: 2 }]
+    each dog, index in dogs
+      .col-sm-4
+        div 
+          .card(onclick=`buy(${index})`)
+            .card-body
+              p Breed: #{dog.breed}
+              p Color: #{dog.color}
+              p Age: #{dog.age}
+
+  script.
+    function buy(index) {
+      alert(`You purchased item ${index}`);
+    }
+

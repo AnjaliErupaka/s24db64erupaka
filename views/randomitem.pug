@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  h1= title
+  - var image_names = ['beagle.jpeg', 'German shepherd.jpeg', 'Labrador Retriever.jpeg', 'pug.jpg', 'shitzu.jpeg']
+  - for (let i = 0; i < 3; i++)
+    img(src=`/images/${image_names[Math.floor(Math.random()*5)]}`, alt=`Random Image ${i}`, height="300", width="300")
+
+
+    

@@ -1,0 +1,31 @@
+extends layout
+
+block content
+  h1= title
+  if query && query.rows && query.cols
+    p No of Rows - #{query.rows} No of Columns - #{query.cols}
+
+    - let rows = Number(query.rows)
+    - let cols = Number(query.cols)
+    if (!Number.isInteger(rows) || !Number.isInteger(cols))
+      p Invalid Rows and Cols.
+    else if (rows < 3 || rows > 13)
+      p rows - between 3 and 13.
+    else if (cols < 3 || cols > 13)
+      p columns - between 3 and 13.
+    else
+      table#outer
+        - for (let i = 0; i < rows; i++){
+            tr#middle
+              - for (let j = 0; j < cols; j++){
+                  td= Math.min(i, j) + 1
+              - }
+        - }
+  else
+    p No query parameters were given.
+
+
+  script.
+    console.log(`rows `+#{query.rows})
+    console.log(`cols `+#{query.cols})
+  
