@@ -1,11 +1,10 @@
 var express = require('express');
+const dog_controllers = require('../controllers/dogs')
 var router = express.Router();
-
+ 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('dogs', { title: 'Search Results - Dog' });
-});
-
+router.get('/', dog_controllers.dog_view_all_Page);
+ 
 module.exports = router;
 
 
