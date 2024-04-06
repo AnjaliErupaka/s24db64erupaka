@@ -12,9 +12,9 @@ router.post('/dog', dog_controller.dog_create_post);
 // DELETE request to delete dog.
 router.delete('/dog/:id', dog_controller.dog_delete);
 // PUT request to update dog.
-router.put('/dog/:id', dog_controller.dog_update_put);
+router.put('/dog/:id', dog_controller.dogs_update_put);
 // GET request for one dog.
-router.get('/dog/:id', dog_controller.dog_detail);
+router.get('/dog/:id', dog_controller.dogs_detail);
 // GET request for list of all dog items.
 router.get('/dog', dog_controller.dog_list);
  

@@ -1,3 +1,4 @@
+const dogs = require('../models/dogs');
 var dog = require('../models/dogs');
 // List of all dogs
 // exports.dog_list = function(req, res) {
