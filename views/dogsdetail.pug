@@ -1,0 +1,24 @@
+extends layout
+block content
+    h1= title
+
+    if(toShow == null)
+        h2 No instance to view Details of the dog.
+    else
+        - let dogid = toShow._id
+        - let Dog_Breed = toShow.Dog_Breed
+        - let Dog_Color = toShow.Dog_Color
+        - let Dog_Name = toShow.Dog_Name
+        div
+            div.row
+                div(class='dogAttr mr-3') dog ID is:
+                div #{dogid}
+            div.row
+                div(class='dogAttr mr-3') Dog_Breed is:
+                div #{Dog_Breed}
+            div.row
+                div(class='dogAttr mr-3') Dog_Color is:
+                div #{Dog_Color}
+            div.row
+                div(class='dogAttr mr-3') Dog_Name is:
+                div #{Dog_Name}

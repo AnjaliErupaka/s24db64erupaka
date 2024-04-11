@@ -1,0 +1,46 @@
+extends layout
+
+block content
+ div(class="container-fluid p-5 bg-primary text-white text-center")
+    h1= title
+
+    if(toShow == null)
+        h2 No instance to update 
+    else
+        - let dogid = toShow._id
+        - let Dog_Breed = toShow.Dog_Breed
+        - let Dog_Color = toShow.Dog_Color
+        - let Dog_Name = toShow.Dog_Name
+ 
+        div.row(class="container-fluid p-2 bg-dark text-white")
+            div.mr-1 ID is
+            div #{dogid}
+            - let actionid = "/resource/dog/" + dogid
+            form(id='dogForm', action= actionid, method="PUT", class="p-2 bg-dark flex-fill")
+                div.form-group(class="p-2 text-white flex-fill")
+                    label.dogAttr(for='Dog_Breed', style="width: 120px") Dog_Breed
+                    input#Dog_Breed(type='text', name='Dog_Breed', value= Dog_Breed )
+                div.form-group(class="p-2 text-white flex-fill")
+                    label.dogAttr(for='Dog_Color', style="width: 120px") Dog_Color
+                    input#Dog_Color(type='text', name='Dog_Color', value= Dog_Color )
+                div.form-group(class="p-2 text-white flex-fill")
+                    label.dogAttr(for='Dog_Name', style="width: 120px") Dog_Name
+                    input#Dog_Name(type='number', name='Dog_Name', value= Dog_Name )
+                input(type="submit", class="btn btn-primary m-2")
+        script.
+            document.forms['dogForm'].addEventListener('submit', (event) => {
+                event.preventDefault();
+                // TODO do something here to show user that form is being submitted
+                fetch(event.target.action, {
+                    method: 'PUT',
+                    body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+                }).then((resp) => {
+                    return resp.json(); // or resp.text() or whatever the server sends
+                }).then((body) => {
+                    alert("Update succeded")
+                    // TODO handle body
+                }).catch((error) => {
+                // TODO handle error
+                alert("Update failed " + error )
+                });
+            });

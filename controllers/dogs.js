@@ -33,7 +33,7 @@ exports.dog_create_post = async function(req, res) {
     // and require that it be a json object
     // {"Dog_Breed":"goat", "cost":12, "size":"large"}
     document.Dog_Breed = req.body.Dog_Breed;
-    document.Dog_Color = req.body.Dog_Color;
+    document.Dog_color = req.body.Dog_color;
     document.Dog_Name = req.body.Dog_Name;
     try{
     let result = await document.save();
@@ -72,7 +72,7 @@ exports.dogs_update_put = async function(req, res) {
     // Do updates of properties
     if(req.body.Dog_Breed)
     toUpdate.Dog_Breed = req.body.Dog_Breed;
-    if(req.body.Dog_Color) toUpdate.Dog_Color = req.body.Dog_Color;
+    if(req.body.Dog_color) toUpdate.Dog_color = req.body.Dog_color;
     if(req.body.Dog_Name) toUpdate.Dog_Name = req.body.Dog_Name;
     let result = await toUpdate.save();
     console.log("Sucess " + result)
@@ -96,6 +96,77 @@ exports.dog_list = async function(req, res) {
     }
     };
    
+    // Handle dog delete on DELETE.
+exports.dog_delete = async function(req, res) {
+console.log("delete " + req.params.id)
+try {
+result = await dog.findByIdAndDelete( req.params.id)
+console.log("Removed " + result)
+res.send(result)
+} catch (err) {
+res.status(500)
+res.send(`{"error": Error deleting ${err}}`);
+}
+};
+
+// Handle a show one view with id specified by query
+exports.dog_view_one_Page = async function(req, res) {
+console.log("single view for id " + req.query.id)
+try{
+result = await dog.findById( req.query.id)
+res.render('dogsdetail',
+{ title: 'dog Detail', toShow: result });
+}
+catch(err){
+res.status(500)
+res.send(`{'error': '${err}'}`);
+}
+};
+
+// Handle building the view for creating a dog.
+// No body, no in path parameter, no query.
+// Does not need to be async
+exports.dog_create_Page = function(req, res) {
+    console.log("create view")
+    try{
+    res.render('dogscreate', { title: 'dog Create'});
+    }   
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    };
+
+    
+// Handle building the view for updating a dog.
+// query provides the id
+exports.dog_update_Page = async function(req, res) {
+console.log("update view for item "+req.query.id)
+try{
+let result = await dog.findById(req.query.id)
+res.render('dogsupdate', { title: 'dog Update', toShow: result });
+}
+catch(err){
+res.status(500)
+res.send(`{'error': '${err}'}`);
+}
+};
+
+// Handle a delete one view with id from query
+exports.dog_delete_Page = async function(req, res) {
+    console.log("Delete view for id " + req.query.id)
+    try{
+    result = await dog.findById(req.query.id)
+    res.render('dogsdelete', { title: 'dog Delete', toShow:
+    result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    };
+    
+    
     //VIEWS
     // Handle a show all view
     exports.dog_view_all_Page = async function(req, res) {
