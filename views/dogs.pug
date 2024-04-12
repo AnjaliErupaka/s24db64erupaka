@@ -4,18 +4,19 @@ block content
   h1= title
   - let items = results
   div(class="container-fluid")
-    div(class="row")
-      each item, index in results  
+    div(class="row m-1")
+      each item, index in results 
+        - let destination = `dispatch(\"/dogs/update?id=${item._id}\")` 
         div(class="col-sm-2",onclick=`buy(${index})`)
-          p #{item.Dog_Breed} 
-          p #{item.Dog_Color}
-          p #{item.Dog_Name}
-
+          ul
+            li #{item.Dog_Breed} 
+            li #{item.Dog_Color}
+            li #{item.Dog_Name}
+        button.btn( class="btn-primary ml-1", onclick= destination) Update
   script.
-    console.log("shjgh");
-    function buy(index) {
-        console.log(index)
-        alert(' You purchased item ' + index);
-    }
+    function dispatch(path){
+      window.location.href=path
+      }
+
 
 
